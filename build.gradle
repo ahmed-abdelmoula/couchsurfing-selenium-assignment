@@ -20,11 +20,14 @@ dependencies {
 		exclude group: 'org.hamcrest'
 	}
 	testCompile 'org.hamcrest:hamcrest-library:1.3'
+
 }
 
 
 
 
 test{
+
     testLogging.showStandardStreams = true
+
 }

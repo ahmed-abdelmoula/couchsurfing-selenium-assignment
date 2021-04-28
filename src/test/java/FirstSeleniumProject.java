@@ -1,10 +1,7 @@
 import org.junit.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
-
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 public class FirstSeleniumProject {
@@ -27,8 +24,8 @@ public class FirstSeleniumProject {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
     }
- 
 
+    @Test
     /* Login */
     public void login() {
         LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
@@ -36,7 +33,8 @@ public class FirstSeleniumProject {
         ReadConfigFile rd = new ReadConfigFile();
         Assert.assertEquals(rd.loadProperties().getProperty("profile"), expectedProfile);
     }
-    
+
+    @Test
     /* LogOut */
     public void LogOut() {
         LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
@@ -44,6 +42,8 @@ public class FirstSeleniumProject {
         ReadConfigFile rd = new ReadConfigFile();
         Assert.assertEquals(rd.loadProperties().getProperty("main_page"), expectedMainPage);
     }
+
+    @Test
     /* LogOut with Cookies */
     public void LoginWithCookies() {
         LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
@@ -51,7 +51,8 @@ public class FirstSeleniumProject {
         Assert.assertTrue(resultPage.getBodyText().contains("Welcome !"));
 
     }
-    
+
+    @Test
     /* Form sending with user */
     public void sendFormWithUser() {
         LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
@@ -61,7 +62,8 @@ public class FirstSeleniumProject {
         ReadConfigFile rd = new ReadConfigFile();
         Assert.assertEquals(rd.loadProperties().getProperty("profile"), expectedMainPage);
     }
-    
+
+    @Test
     /* Check Hover Button */
     public void hoverButton() {
         StaticMainPage wAway = new StaticMainPage(this.driver);
@@ -69,7 +71,8 @@ public class FirstSeleniumProject {
         Assert.assertTrue(resultPage.getBodyText().contains("COVID-19"));
 
     }
-    
+
+    @Test
     /* Static Page test */
     public void searchForTheQueries() {
         String[] searchQueries = { "Hiking", "Children" };
@@ -80,7 +83,8 @@ public class FirstSeleniumProject {
             Assert.assertFalse(bodyText.contains("No results were found for this search."));
         }
     }
-    
+
+    @Test
     /* Back Button Click */
     public void backHistory() {
         StaticMainPage wAway = new StaticMainPage(this.driver);
@@ -88,19 +92,22 @@ public class FirstSeleniumProject {
         ReadConfigFile rd = new ReadConfigFile();
         Assert.assertEquals(rd.loadProperties().getProperty("main_page"), expectedMainPage);
     }
- 
+
+    @Test
     /* Check If Page Opened Or Not */
     public void OpenPage() {
         StaticMainPage wAway = new StaticMainPage(this.driver);
         wAway.checkPageOpened();
     }
-    
+
+    @Test
     /* Read The Page Title */
     public void readTitlePage() {
         StaticMainPage wAway = new StaticMainPage(this.driver);
         wAway.checkTitlePage();
     }
 
+    @Test
     /* Upload Picture */
     public void uploadPicture() {
         LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
@@ -110,10 +117,10 @@ public class FirstSeleniumProject {
         Assert.assertFalse(bodyText.contains(rd.loadProperties().getProperty("name_image_upload")));
     }
 
-    // @After
-    // public void teardown() {
-    // if (driver != null) {
-    // driver.quit();
-    // }
-    // }
+    @After
+    public void teardown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 }

@@ -1,10 +1,7 @@
 import java.io.BufferedWriter;		
 import java.io.File;		
 import java.io.FileWriter;
-import java.util.Set;
-import org.openqa.selenium.By;		
 import org.openqa.selenium.WebDriver;		
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.Cookie;		
 
 public class cookieRead extends PageBase{	
@@ -23,8 +20,6 @@ public class cookieRead extends PageBase{
             file.createNewFile();			
             FileWriter fileWrite = new FileWriter(file);							
             BufferedWriter Bwrite = new BufferedWriter(fileWrite);							
-            // loop for getting the cookie information 		
-            	
             // loop for getting the cookie information 		
             for(Cookie ck : driver.manage().getCookies())							
             {			

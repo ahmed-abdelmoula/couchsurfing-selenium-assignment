@@ -4,17 +4,12 @@ import org.openqa.selenium.WebElement;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.StringTokenizer;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import java.awt.AWTException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
-import java.util.concurrent.TimeUnit;
 import java.awt.event.KeyEvent;
 import java.awt.Robot;
 

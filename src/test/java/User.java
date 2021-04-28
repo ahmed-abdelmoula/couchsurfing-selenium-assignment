@@ -1,6 +1,3 @@
-import java.io.FileReader;
-import java.util.Properties;
-
 public class User {
 
     private int id;

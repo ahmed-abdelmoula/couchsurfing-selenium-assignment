@@ -1,5 +1,7 @@
 import org.junit.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -7,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 public class FirstSeleniumProject {
     public WebDriver driver;
-    public WebDriverWait wait;
 
     @BeforeClass
     public static void setupClass() {
@@ -27,92 +28,92 @@ public class FirstSeleniumProject {
 
     }
  
-    
-    @Test
+
     /* Login */
     public void login() {
-        MainPage mainPage = new MainPage(this.driver);
+        LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
         String expectedProfile = mainPage.login();
-        readFile rd = new readFile();
+        ReadConfigFile rd = new ReadConfigFile();
         Assert.assertEquals(rd.loadProperties().getProperty("profile"), expectedProfile);
     }
-    @Test
+    
     /* LogOut */
     public void LogOut() {
-        MainPage mainPage = new MainPage(this.driver);
+        LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
         String expectedMainPage = mainPage.logOut();
-        readFile rd = new readFile();
+        ReadConfigFile rd = new ReadConfigFile();
         Assert.assertEquals(rd.loadProperties().getProperty("main_page"), expectedMainPage);
     }
-    @Test
     /* LogOut with Cookies */
     public void LoginWithCookies() {
-        CookieWrite cw = new CookieWrite(this.driver);
-        cw.readCo();
-    }
-    @Test
-    /* Form sending with user */
-    public void sendFormWithUser() {
-        MainPage mainPage = new MainPage(this.driver);
-        sendForm sender = new sendForm(this.driver);
-        mainPage.login();
-        String expectedMainPage = sender.sendIt();
-        readFile rd = new readFile();
-        Assert.assertEquals(rd.loadProperties().getProperty("profile"), expectedMainPage);
-    }
-    @Test
-    /* Check Hover Button */
-    public void hoverButton() {
-        WorkAway wAway = new WorkAway(this.driver);
-        ResultPage resultPage = wAway.hoverIt();
-        System.out.println(resultPage.getBodyText());
-        Assert.assertTrue(resultPage.getBodyText().contains("COVI-19"));
+        LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
+        ResultPage resultPage = mainPage.readCo();
+        Assert.assertTrue(resultPage.getBodyText().contains("Welcome !"));
 
     }
-    @Test
+    
+    /* Form sending with user */
+    public void sendFormWithUser() {
+        LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
+        FormSender sender = new FormSender(this.driver);
+        mainPage.login();
+        String expectedMainPage = sender.sendIt();
+        ReadConfigFile rd = new ReadConfigFile();
+        Assert.assertEquals(rd.loadProperties().getProperty("profile"), expectedMainPage);
+    }
+    
+    /* Check Hover Button */
+    public void hoverButton() {
+        StaticMainPage wAway = new StaticMainPage(this.driver);
+        ResultPage resultPage = wAway.hoverIt();
+        Assert.assertTrue(resultPage.getBodyText().contains("COVID-19"));
+
+    }
+    
     /* Static Page test */
     public void searchForTheQueries() {
         String[] searchQueries = { "Hiking", "Children" };
         for (String searchQuery : searchQueries) {
-            MainPage mainPage = new MainPage(this.driver);
+            StaticMainPage mainPage = new StaticMainPage(this.driver);
             ResultPage searchResultPage = mainPage.search(searchQuery);
             String bodyText = searchResultPage.getBodyText();
             Assert.assertFalse(bodyText.contains("No results were found for this search."));
         }
     }
-    @Test
+    
     /* Back Button Click */
     public void backHistory() {
-        WorkAway wAway = new WorkAway(this.driver);
+        StaticMainPage wAway = new StaticMainPage(this.driver);
         String expectedMainPage = wAway.Historytest();
-        readFile rd = new readFile();
+        ReadConfigFile rd = new ReadConfigFile();
         Assert.assertEquals(rd.loadProperties().getProperty("main_page"), expectedMainPage);
     }
-    @Test
+ 
     /* Check If Page Opened Or Not */
     public void OpenPage() {
-        WorkAway wAway = new WorkAway(this.driver);
+        StaticMainPage wAway = new StaticMainPage(this.driver);
         wAway.checkPageOpened();
     }
-    @Test
+    
     /* Read The Page Title */
     public void readTitlePage() {
-        WorkAway wAway = new WorkAway(this.driver);
+        StaticMainPage wAway = new StaticMainPage(this.driver);
         wAway.checkTitlePage();
     }
-    @Test
+
     /* Upload Picture */
     public void uploadPicture() {
-        MainPage mainPage = new MainPage(this.driver);
+        LoggedInMainPage mainPage = new LoggedInMainPage(this.driver);
         ResultPage resultOfDownload = mainPage.uploadPicture();
-        System.out.println(resultOfDownload.getBodyText());
-
+        String bodyText = resultOfDownload.getBodyText();
+        ReadConfigFile rd = new ReadConfigFile();
+        Assert.assertFalse(bodyText.contains(rd.loadProperties().getProperty("name_image_upload")));
     }
 
-    @After
-    public void teardown() {
-    if (driver != null) {
-    driver.quit();
-    }
-    }
+    // @After
+    // public void teardown() {
+    // if (driver != null) {
+    // driver.quit();
+    // }
+    // }
 }

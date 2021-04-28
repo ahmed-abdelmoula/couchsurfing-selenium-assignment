@@ -12,9 +12,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class sendForm extends PageBase  {
+public class FormSender extends PageBase  {
 
-    public sendForm(WebDriver driver) {
+    public FormSender(WebDriver driver) {
         super(driver);
         this.driver.get("https://www.workaway.info/");
     }  
@@ -37,7 +37,7 @@ public class sendForm extends PageBase  {
             js.executeScript("window.scrollBy(0,350)", "");
             textArea.sendKeys(Keys.TAB);
             textArea.clear();
-            Map<String, Integer> rf = new RandomWord().readFile();
+            Map<String, Integer> rf = new RandomData().readFile();
             List<String> keysAsArray = new ArrayList<String>(rf.keySet());
             Random r = new Random();
             textArea.sendKeys(keysAsArray.get(r.nextInt(keysAsArray.size())));

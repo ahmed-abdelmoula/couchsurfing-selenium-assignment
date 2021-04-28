@@ -2,7 +2,7 @@
 import java.io.*;
 import java.util.*;
 
-public class RandomWord {
+public class RandomData {
     Map<String,Integer> map;
   public Map<String, Integer> readFile() throws FileNotFoundException {
 

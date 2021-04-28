@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.io.File;
 
-public class readFile { 
+public class ReadConfigFile { 
 
 	public Properties properties;
 	

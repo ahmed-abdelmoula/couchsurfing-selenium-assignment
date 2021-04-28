@@ -19,10 +19,7 @@ class PageBase {
         this.wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return this.driver.findElement(locator);
     } 
-    protected WebElement waitVisibleAndReturnElement(By locator) {
-        this.wait.until(ExpectedConditions.elementToBeClickable(locator));
-        return this.driver.findElement(locator);
-    }
+
     
     public String getBodyText() {
         WebElement bodyElement = this.waitAndReturnElement(By.tagName("body"));

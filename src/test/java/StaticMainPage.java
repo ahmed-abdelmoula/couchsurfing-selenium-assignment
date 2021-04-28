@@ -5,14 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-public class WorkAway extends PageBase  {
+public class StaticMainPage extends PageBase {
 
-
-
-    public WorkAway(WebDriver driver) {
+    public StaticMainPage(WebDriver driver) {
         super(driver);
         this.driver.get("https://www.workaway.info/");
-    }    
+    }
 
     public void checkTitlePage() {
         String expectedTitle = "Workaway.info the site for cultural exchange. Gap year volunteer for food and accommodation whilst travelling abroad.";
@@ -36,6 +34,14 @@ public class WorkAway extends PageBase  {
             System.out.println("Didn't navigate to correct webpage");
         }
     }
+ 
+    public ResultPage search(String searchQuery) {
+        this.waitAndReturnElement(By.xpath("//div[contains(@class, 'container nopadding-xs')]/div/ul[contains(@class, 'nav navbar-nav')]/li/a[@href='/en/hostlist']")).click();
+        this.waitAndReturnElement(By.name("search")).sendKeys(searchQuery + "\n");
+        this.waitAndReturnElement(By.xpath("//div[contains(@class, 'checkbox-custom checkbox-custom-inline')]"))
+                .click();
+        return new ResultPage(this.driver);
+    }
 
     public String Historytest() {
         String expectedUrl = "https://www.workaway.info/";
@@ -51,7 +57,8 @@ public class WorkAway extends PageBase  {
         return (this.driver).getTitle();
 
     }
-    public ResultPage hoverIt () {
+
+    public ResultPage hoverIt() {
         // locate the menu to hover over using its xpath
         WebElement ele = this.waitAndReturnElement(By.linkText("Giving back"));
         // Initiate mouse action using Actions class
@@ -60,7 +67,7 @@ public class WorkAway extends PageBase  {
         actions.moveToElement(ele).perform();
         this.waitAndReturnElement(By.xpath("//li[contains(@class, 'dropdown')]/ul/li/a[@href='/en/info/covid-19']"))
                 .click();
-        
-                return new ResultPage(this.driver);
-            }
+
+        return new ResultPage(this.driver);
+    }
 }

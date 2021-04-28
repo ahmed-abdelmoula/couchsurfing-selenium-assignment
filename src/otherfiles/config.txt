@@ -1,0 +1,4 @@
+email=ahmed.abdelmola@hotmail.com
+password=20304050ahmed
+profile=My Workaway account
+main_page=Workaway.info the site for cultural exchange. Gap year volunteer for food and accommodation whilst travelling abroad.
